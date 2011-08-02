@@ -8,9 +8,9 @@ class Baskara(Converte):
         '''
         Inicializa os objetos pricipais A, B e C.
         '''    
-        self.avalue = float(avalue)
-        self.bvalue = float(bvalue)
-        self.cvalue = float(cvalue)
+        self.avalue = self.floatTransform(avalue)
+        self.bvalue = self.floatTransform(bvalue)
+        self.cvalue = self.floatTransform(cvalue)
         self.pydelta = (self.bvalue ** 2) - (4 * self.avalue * self.cvalue)
         
     def getA(self):
@@ -29,20 +29,31 @@ class Baskara(Converte):
         '''
         Retorna o resultado da fórmula de Baskara.
         '''
+        if self.avalue == 0:
+            self.res = u"O valor de 'a' não pode ser nulo."
+            
+        elif self.bvalue == 0:
+            self.xqu = -(self.cvalue / self.avalue)
+            if self.xqu < 0:
+                self.res = u"x = \u221a" + self.intTransform(self.xqu)
+            else:
+                self.res = u"x = \xb1\u221a" + self.intTransform(self.xqu) + u" \u21d2 x = \xb1" + self.intTransform(rq(self.xqu))
         
-        if self.pydelta < 0:
-            return u"Delta negativo, sem valores reais."
+        elif self.cvalue == 0:
+            self.res = -(self.bvalue / self.avalue) 
+            
+        elif self.pydelta < 0:
+            self.res = u"Delta negativo, sem valores reais."
         
         elif self.pydelta == 0:
-            self.x1 = (-(self.bvalue) + rq(self.pydelta)) / (2 * self.avalue)
-            self.res = u"X = " + self.intTransform(self.x1)
-            return self.res
+            self.x1 = -(self.bvalue) / (2 * self.avalue)
+            self.res = u"x = " + self.intTransform(self.x1)
         
         else:
             self.x1 = (-(self.bvalue) + rq(self.pydelta)) / (2 * self.avalue)
             self.x2 = (-(self.bvalue) - rq(self.pydelta)) / (2 * self.avalue)
-            self.res = "X1 = " + self.intTransform(self.x1) + "\nX2 = " + self.intTransform(self.x2)
-            return self.res
+            self.res = u"x\u2081 = " + self.intTransform(self.x1) + u"\nx\u2082 = " + self.intTransform(self.x2)
+        return self.res
         
     def intTransform(self, valor):
         self.valor = valor
@@ -50,3 +61,20 @@ class Baskara(Converte):
             return "%i" % int(self.valor)
         else:
             return "%.2f" % self.valor
+    
+    def floatTransform(self, valor):
+        self.valor = valor
+        
+        if ',' in self.valor:
+            while self.valor.count(',') > 1:
+                self.valor = self.valor.replace(',', '', 1)
+            self.valor = self.valor.replace(',', '.')
+        
+        if ' ' in self.valor:
+            self.valor = self.valor.replace(' ', '')
+        
+        if len(self.valor) == 0 or len(self.valor) == 1 and self.valor == '.':
+            self.valor = "0"
+        
+        
+        return float(self.valor)
