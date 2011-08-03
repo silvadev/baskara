@@ -1,5 +1,5 @@
 kod baskara
-===========
+======
 
 Pequeno programa em desenvolvimento destinado a calcular [equações do 2º grau](http://pt.wikipedia.org/wiki/Equa%C3%A7%C3%A3o_quadr%C3%A1tica "Equação quadrática") utilizando a [Fórmula de Bhaskara](http://pt.wikipedia.org/wiki/F%C3%B3rmula_de_Bhaskara#F.C3.B3rmula "Fórmula de Bhaskara").
 
