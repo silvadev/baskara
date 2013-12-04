@@ -10,7 +10,7 @@ import org.python.util.PythonInterpreter;
 
 
 public class Baskara {
-	public static PyObject baskaraClass;
+	private static PyObject baskaraClass;
 	
 	public Baskara() {
 		/*
@@ -18,7 +18,7 @@ public class Baskara {
 		 * e o coloca na variável baskaraClass.
 		 */
 		PythonInterpreter interpretador = new PythonInterpreter();
-		interpretador.exec("from Baskara import Baskara");
+		interpretador.exec("from baskara import Baskara");
 		baskaraClass = interpretador.get("Baskara");
 		
 	}
